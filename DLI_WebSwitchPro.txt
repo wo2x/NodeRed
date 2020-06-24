@@ -1,0 +1,502 @@
+[
+    {
+        "id": "5314c60e.b86aa8",
+        "type": "tab",
+        "label": "DLI Web Switch Pro",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "99c5350f.203068",
+        "type": "exec",
+        "z": "5314c60e.b86aa8",
+        "command": "curl http://user:password@10.4.0.2:1933/status",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 430,
+        "y": 200,
+        "wires": [
+            [
+                "84f6f655.09f248"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a12df766.175278",
+        "type": "inject",
+        "z": "5314c60e.b86aa8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "x": 103,
+        "y": 200.5,
+        "wires": [
+            [
+                "99c5350f.203068"
+            ]
+        ]
+    },
+    {
+        "id": "84f6f655.09f248",
+        "type": "split",
+        "z": "5314c60e.b86aa8",
+        "name": "",
+        "splt": "<div",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 270,
+        "y": 300,
+        "wires": [
+            [
+                "1fa2bffb.d8ed1"
+            ]
+        ]
+    },
+    {
+        "id": "9a6e8226.18b08",
+        "type": "function",
+        "z": "5314c60e.b86aa8",
+        "name": "ParseRelay1State",
+        "func": "msg.payload = msg.payload.substr(12,2)\nmsg.payload = parseInt(msg.payload,16)\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 590,
+        "y": 300,
+        "wires": [
+            [
+                "c7d539f4.e1db28"
+            ]
+        ]
+    },
+    {
+        "id": "1fa2bffb.d8ed1",
+        "type": "switch",
+        "z": "5314c60e.b86aa8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "id=\"state",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "9a6e8226.18b08"
+            ]
+        ]
+    },
+    {
+        "id": "70685417.a3f55c",
+        "type": "ui_switch",
+        "z": "5314c60e.b86aa8",
+        "name": "Outlet1",
+        "label": "PC",
+        "tooltip": "",
+        "group": "788d2dcb.404494",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "outlet?1=",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "fa-2x fa-power-off",
+        "oncolor": "lightgreen",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "fa-2x fa-power-off",
+        "offcolor": "red",
+        "x": 1180,
+        "y": 140,
+        "wires": [
+            [
+                "1c1b7e4a.29c7e2"
+            ]
+        ]
+    },
+    {
+        "id": "58300bab.1d9124",
+        "type": "ui_switch",
+        "z": "5314c60e.b86aa8",
+        "name": "Outlet2",
+        "label": "Monitor",
+        "tooltip": "",
+        "group": "788d2dcb.404494",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "outlet?2=",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "fa-2x fa-power-off",
+        "oncolor": "lightgreen",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "fa-2x fa-power-off",
+        "offcolor": "red",
+        "x": 1180,
+        "y": 200,
+        "wires": [
+            [
+                "1c1b7e4a.29c7e2"
+            ]
+        ]
+    },
+    {
+        "id": "f8abae66.da311",
+        "type": "ui_switch",
+        "z": "5314c60e.b86aa8",
+        "name": "Outlet3",
+        "label": "12 Volts",
+        "tooltip": "",
+        "group": "788d2dcb.404494",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "outlet?3=",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "fa-2x fa-power-off",
+        "oncolor": "lightgreen",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "fa-2x fa-power-off",
+        "offcolor": "red",
+        "x": 1180,
+        "y": 260,
+        "wires": [
+            [
+                "1c1b7e4a.29c7e2"
+            ]
+        ]
+    },
+    {
+        "id": "b198f7bd.728038",
+        "type": "ui_switch",
+        "z": "5314c60e.b86aa8",
+        "name": "Outlet5",
+        "label": "Desk Switch",
+        "tooltip": "",
+        "group": "788d2dcb.404494",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "outlet?5=",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "fa-2x fa-power-off",
+        "oncolor": "lightgreen",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "fa-2x fa-power-off",
+        "offcolor": "red",
+        "x": 1180,
+        "y": 380,
+        "wires": [
+            [
+                "1c1b7e4a.29c7e2"
+            ]
+        ]
+    },
+    {
+        "id": "f44d9bac.644838",
+        "type": "ui_switch",
+        "z": "5314c60e.b86aa8",
+        "name": "Outlet6",
+        "label": "Outlet 6",
+        "tooltip": "",
+        "group": "788d2dcb.404494",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "outlet?6=",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "fa-2x fa-power-off",
+        "oncolor": "lightgreen",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "fa-2x fa-power-off",
+        "offcolor": "red",
+        "x": 1180,
+        "y": 440,
+        "wires": [
+            [
+                "1c1b7e4a.29c7e2"
+            ]
+        ]
+    },
+    {
+        "id": "637393df.20915c",
+        "type": "ui_switch",
+        "z": "5314c60e.b86aa8",
+        "name": "Outlet4",
+        "label": "Outlet 4",
+        "tooltip": "",
+        "group": "788d2dcb.404494",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "outlet?4=",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "fa-2x fa-power-off",
+        "oncolor": "lightgreen",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "fa-2x fa-power-off",
+        "offcolor": "red",
+        "x": 1180,
+        "y": 320,
+        "wires": [
+            [
+                "1c1b7e4a.29c7e2"
+            ]
+        ]
+    },
+    {
+        "id": "1956a80e.fb8f88",
+        "type": "function",
+        "z": "5314c60e.b86aa8",
+        "name": "Split Relays",
+        "func": "var onmsg = { payload: msg.payload,topic:msg.topic };\nvar offmsg = { payload: msg.payload,topic:msg.topic };\n\nvar msg1 = { payload: msg.payload,topic:msg.topic };\nvar msg2 = { payload: msg.payload,topic:msg.topic };\nvar msg3 = { payload: msg.payload,topic:msg.topic };\nvar msg4 = { payload: msg.payload,topic:msg.topic };\nvar msg5 = { payload: msg.payload,topic:msg.topic };\nvar msg6 = { payload: msg.payload,topic:msg.topic };\nvar msg7 = { payload: msg.payload,topic:msg.topic };\nvar msg8 = { payload: msg.payload,topic:msg.topic };\n\n\n//msg.payload=true;\nonmsg.payload=true;\noffmsg.payload=false;\n\nif (msg.payload &   1) msg1.payload=true; else msg1.payload=false;\nif (msg.payload &   2) msg2.payload=true; else msg2.payload=false;\nif (msg.payload &   4) msg3.payload=true; else msg3.payload=false;\nif (msg.payload &   8) msg4.payload=true; else msg4.payload=false;\nif (msg.payload &  16) msg5.payload=true; else msg5.payload=false;\nif (msg.payload &  32) msg6.payload=true; else msg6.payload=false;\nif (msg.payload &  64) msg7.payload=true; else msg7.payload=false;\nif (msg.payload & 128) msg8.payload=true; else msg8.payload=false;\n\n\n\nreturn [msg1,msg2,msg3,msg4,msg5,msg6,msg7,msg8];",
+        "outputs": 8,
+        "noerr": 0,
+        "x": 950,
+        "y": 300,
+        "wires": [
+            [
+                "70685417.a3f55c"
+            ],
+            [
+                "58300bab.1d9124"
+            ],
+            [
+                "f8abae66.da311"
+            ],
+            [
+                "637393df.20915c"
+            ],
+            [
+                "b198f7bd.728038"
+            ],
+            [
+                "f44d9bac.644838"
+            ],
+            [
+                "b8a02f57.cd46d"
+            ],
+            [
+                "9a6cce2b.ffc97"
+            ]
+        ]
+    },
+    {
+        "id": "1c1b7e4a.29c7e2",
+        "type": "function",
+        "z": "5314c60e.b86aa8",
+        "name": "Curl Login",
+        "func": "\nvar command=msg.payload;\nif ( command===true) msg.payload=\"ON\";else msg.payload=\"OFF\";\n command=\"curl http://user:password@10.4.0.2:1933/\"+msg.topic+msg.payload;\n\nmsg.payload=command;\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1400,
+        "y": 320,
+        "wires": [
+            [
+                "a6cf8b2d.557848"
+            ]
+        ]
+    },
+    {
+        "id": "9f72d52.a839828",
+        "type": "exec",
+        "z": "5314c60e.b86aa8",
+        "command": "",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "oldrc": false,
+        "name": "",
+        "x": 1790,
+        "y": 320,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c7d539f4.e1db28",
+        "type": "rbe",
+        "z": "5314c60e.b86aa8",
+        "name": "",
+        "func": "rbe",
+        "gap": "",
+        "start": "",
+        "inout": "out",
+        "property": "payload",
+        "x": 770,
+        "y": 300,
+        "wires": [
+            [
+                "1956a80e.fb8f88"
+            ]
+        ]
+    },
+    {
+        "id": "a6cf8b2d.557848",
+        "type": "delay",
+        "z": "5314c60e.b86aa8",
+        "name": "",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "20",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "x": 1600,
+        "y": 320,
+        "wires": [
+            [
+                "9f72d52.a839828"
+            ]
+        ]
+    },
+    {
+        "id": "b8a02f57.cd46d",
+        "type": "ui_switch",
+        "z": "5314c60e.b86aa8",
+        "name": "Outlet7",
+        "label": "6700 Remote On",
+        "tooltip": "",
+        "group": "788d2dcb.404494",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "outlet?7=",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "fa-2x fa-power-off",
+        "oncolor": "lightgreen",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "fa-2x fa-power-off",
+        "offcolor": "red",
+        "x": 1180,
+        "y": 500,
+        "wires": [
+            [
+                "1c1b7e4a.29c7e2"
+            ]
+        ]
+    },
+    {
+        "id": "9a6cce2b.ffc97",
+        "type": "ui_switch",
+        "z": "5314c60e.b86aa8",
+        "name": "Outlet8",
+        "label": "Outlet 8",
+        "tooltip": "",
+        "group": "788d2dcb.404494",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "decouple": "true",
+        "topic": "outlet?8=",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "fa-2x fa-power-off",
+        "oncolor": "lightgreen",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "fa-2x fa-power-off",
+        "offcolor": "red",
+        "x": 1180,
+        "y": 560,
+        "wires": [
+            [
+                "1c1b7e4a.29c7e2"
+            ]
+        ]
+    },
+    {
+        "id": "d9cd8584.36c2a8",
+        "type": "comment",
+        "z": "5314c60e.b86aa8",
+        "name": "Curl node comment",
+        "info": "In the Data Loggers Web Switch Pro setup you need to create a user and password that has full control of the switch.\n\nChange user, password, and port number in Curl Status node to match the setup of the Web Switch Pro.\n\nAlso change user, password, and port number in the Curl login node.\n\nDave wo2x\n",
+        "x": 470,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "788d2dcb.404494",
+        "type": "ui_group",
+        "z": "",
+        "name": "Power Switch",
+        "tab": "8f98f4ce.30eb48",
+        "order": 5,
+        "disp": true,
+        "width": "3",
+        "collapse": false
+    },
+    {
+        "id": "8f98f4ce.30eb48",
+        "type": "ui_tab",
+        "z": "",
+        "name": "WO2X Shack Control",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]

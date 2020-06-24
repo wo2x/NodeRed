@@ -1,0 +1,147 @@
+[
+    {
+        "id": "17cb3572.db00cb",
+        "type": "tab",
+        "label": "HF Auto & GHE",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "4f57a5a8.72361c",
+        "type": "change",
+        "z": "17cb3572.db00cb",
+        "name": "Change global TX Freq to payload",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "TXFreq",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 200,
+        "y": 140,
+        "wires": [
+            [
+                "d52bdd5a.1a3cf"
+            ]
+        ]
+    },
+    {
+        "id": "2ee96ddc.f290f2",
+        "type": "inject",
+        "z": "17cb3572.db00cb",
+        "name": "Send Freq to HF Auto every 2 seconds",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "2",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 240,
+        "y": 80,
+        "wires": [
+            [
+                "4f57a5a8.72361c"
+            ]
+        ]
+    },
+    {
+        "id": "887ec032.b83d2",
+        "type": "udp out",
+        "z": "17cb3572.db00cb",
+        "name": "HF Auto UDP 12070",
+        "addr": "10.0.0.78",
+        "iface": "",
+        "port": "12070",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 640,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "7acb62a3.6e637c",
+        "type": "function",
+        "z": "17cb3572.db00cb",
+        "name": "Format XML Document packet for HF Auto",
+        "func": "msg.payload = '<?xml version=\"1.0\" encoding=\"utf-8\"?><NODERED><FREQ>' + msg.payload + \"</FREQ></NODERED>\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 320,
+        "wires": [
+            [
+                "887ec032.b83d2"
+            ]
+        ]
+    },
+    {
+        "id": "d52bdd5a.1a3cf",
+        "type": "function",
+        "z": "17cb3572.db00cb",
+        "name": "Multiply Freq x 1000000",
+        "func": "msg.payload = msg.payload*1000000;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 170,
+        "y": 220,
+        "wires": [
+            [
+                "7acb62a3.6e637c",
+                "afb7d5a4.7ab678"
+            ]
+        ]
+    },
+    {
+        "id": "ecd37115.71d7f",
+        "type": "udp out",
+        "z": "17cb3572.db00cb",
+        "name": "GHE UDP 12060",
+        "addr": "10.0.0.78",
+        "iface": "",
+        "port": "13040",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 690,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "afb7d5a4.7ab678",
+        "type": "function",
+        "z": "17cb3572.db00cb",
+        "name": "Format XML Document packet for Green Heron Everywhere",
+        "func": "msg.payload = msg.payload/10\nmsg.payload = '<?xml version=\"1.0\" encoding=\"utf-8\"?><RadioNr>1</RadioNr><NODERED><FREQ>' + msg.payload + \"</FREQ></NODERED><TXFreq>\" + msg.payload + \"</TXFreq>\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 380,
+        "wires": [
+            [
+                "ecd37115.71d7f"
+            ]
+        ]
+    },
+    {
+        "id": "9b28fda7.47ae7",
+        "type": "comment",
+        "z": "17cb3572.db00cb",
+        "name": "UDP broadcast for W1TR HF Auto app and Green Heron Everywhere antenna switch",
+        "info": "This flow sends radio TX frequency in XML Document format for HF Auto on port 12070 and Green Heron Everywhere on port 12060. \nThe GHE UDP packet has Radio Number, TX Freq, and Freq while the HF Auto packet only has Freq.\n\nDave wo2x\n",
+        "x": 810,
+        "y": 260,
+        "wires": []
+    }
+]

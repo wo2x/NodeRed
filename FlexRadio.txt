@@ -1,0 +1,423 @@
+[
+    {
+        "id": "12a7f09c.a9f45f",
+        "type": "tab",
+        "label": "FlexRadio",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "365b1cb4.87caa4",
+        "type": "split",
+        "z": "12a7f09c.a9f45f",
+        "name": "",
+        "splt": " ",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 450,
+        "y": 260,
+        "wires": [
+            [
+                "1435d3ee.7506cc"
+            ]
+        ]
+    },
+    {
+        "id": "3e23465a.5026ca",
+        "type": "ui_text",
+        "z": "12a7f09c.a9f45f",
+        "group": "953f7c7a.668dd",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "TX VFO",
+        "label": "TX VFO",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 600,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "328be062.5189c",
+        "type": "ui_level",
+        "z": "12a7f09c.a9f45f",
+        "group": "953f7c7a.668dd",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "TX Power",
+        "label": "TX Power",
+        "colorHi": "#e60000",
+        "colorWarn": "#ff9900",
+        "colorNormal": "#00b33c",
+        "colorOff": "#595959",
+        "min": 0,
+        "max": 100,
+        "segWarn": "50",
+        "segHigh": "80",
+        "unit": "Watts",
+        "layout": "sh",
+        "channelA": "",
+        "channelB": "",
+        "decimals": 0,
+        "animations": "soft",
+        "shape": 2,
+        "colorschema": "fixed",
+        "textoptions": "default",
+        "colorText": "#000000",
+        "fontLabel": "",
+        "fontValue": "",
+        "fontSmall": "",
+        "colorFromTheme": true,
+        "textAnimations": false,
+        "hideValue": false,
+        "tickmode": "off",
+        "peakmode": false,
+        "peaktime": "3000",
+        "x": 600,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "3b0c736a.7cf8ec",
+        "type": "tcp request",
+        "z": "12a7f09c.a9f45f",
+        "server": "10.4.0.245",
+        "port": "4992",
+        "out": "sit",
+        "splitc": " ",
+        "name": "",
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "5970a470.0a507c"
+            ]
+        ]
+    },
+    {
+        "id": "4a47054b.412d4c",
+        "type": "inject",
+        "z": "12a7f09c.a9f45f",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "d776b7bc.7f0f28",
+                "c83cfe08.e43c6"
+            ]
+        ]
+    },
+    {
+        "id": "d776b7bc.7f0f28",
+        "type": "function",
+        "z": "12a7f09c.a9f45f",
+        "name": "C173|sub tx all",
+        "func": "msg.payload = \"C173|sub tx all\\r\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 300,
+        "y": 40,
+        "wires": [
+            [
+                "3b0c736a.7cf8ec"
+            ]
+        ]
+    },
+    {
+        "id": "5970a470.0a507c",
+        "type": "function",
+        "z": "12a7f09c.a9f45f",
+        "name": "Hex to String",
+        "func": "msg.payload = msg.payload.toString('utf8');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "13af527d.68c7f6",
+                "6d3c186d.b79af8"
+            ]
+        ]
+    },
+    {
+        "id": "1435d3ee.7506cc",
+        "type": "switch",
+        "z": "12a7f09c.a9f45f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "rfpower=",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "freq=",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 130,
+        "y": 360,
+        "wires": [
+            [
+                "fca75b13.a16c3"
+            ],
+            [
+                "8065b6dc.aca77"
+            ]
+        ]
+    },
+    {
+        "id": "13af527d.68c7f6",
+        "type": "change",
+        "z": "12a7f09c.a9f45f",
+        "name": "Change cal_freq to cal_f",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "cal_freq",
+                "fromt": "str",
+                "to": "cal_f",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 190,
+        "y": 260,
+        "wires": [
+            [
+                "365b1cb4.87caa4"
+            ]
+        ]
+    },
+    {
+        "id": "8065b6dc.aca77",
+        "type": "function",
+        "z": "12a7f09c.a9f45f",
+        "name": "Parse TX VFO",
+        "func": "msg.payload = parseFloat(msg.payload.substr(5,7));\nmsg.payload = msg.payload.toFixed(6);\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 420,
+        "y": 400,
+        "wires": [
+            [
+                "3e23465a.5026ca",
+                "ca22ffc1.ed2c5"
+            ]
+        ]
+    },
+    {
+        "id": "fca75b13.a16c3",
+        "type": "function",
+        "z": "12a7f09c.a9f45f",
+        "name": "Parse RF Power",
+        "func": "msg.payload = parseInt(msg.payload.substr(8,3));\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 340,
+        "wires": [
+            [
+                "328be062.5189c"
+            ]
+        ]
+    },
+    {
+        "id": "ca22ffc1.ed2c5",
+        "type": "change",
+        "z": "12a7f09c.a9f45f",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "TXFreq",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c83cfe08.e43c6",
+        "type": "function",
+        "z": "12a7f09c.a9f45f",
+        "name": "C1|sub client all",
+        "func": "msg.payload = \"C1|sub client all\\r\\n\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 100,
+        "wires": [
+            [
+                "3b0c736a.7cf8ec"
+            ]
+        ]
+    },
+    {
+        "id": "4406ac6e.3ef464",
+        "type": "switch",
+        "z": "12a7f09c.a9f45f",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "client_id=",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 730,
+        "y": 160,
+        "wires": [
+            [
+                "32c1fc41.5e2e54"
+            ]
+        ]
+    },
+    {
+        "id": "6d3c186d.b79af8",
+        "type": "split",
+        "z": "12a7f09c.a9f45f",
+        "name": "",
+        "splt": " ",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 590,
+        "y": 160,
+        "wires": [
+            [
+                "4406ac6e.3ef464"
+            ]
+        ]
+    },
+    {
+        "id": "32c1fc41.5e2e54",
+        "type": "function",
+        "z": "12a7f09c.a9f45f",
+        "name": "C44|client bind Client_id",
+        "func": "msg.payload = msg.payload.substr(10,36);\nmsg.payload = \"C44|client bind client_id=\" + msg.payload + \"\\n\\r\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 930,
+        "y": 160,
+        "wires": [
+            [
+                "3b0c736a.7cf8ec"
+            ]
+        ]
+    },
+    {
+        "id": "89c89ca2.12d06",
+        "type": "comment",
+        "z": "12a7f09c.a9f45f",
+        "name": "Change cal_freq comments",
+        "info": "Changing cal_Freq to Cal_f necessary for correctly parsing the TX Frequency from the radio.\n\nDave wo2x",
+        "x": 120,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "c884e2f4.9c64c",
+        "type": "comment",
+        "z": "12a7f09c.a9f45f",
+        "name": "TX Power display comment",
+        "info": "TX Power will not refresh until the radio transmits. It will show the value of the transmit slider. \n\nFuture code may be able to refresh the value of TX Power in Node Red without transmitting.\n\nDave wo2x",
+        "x": 810,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "dea8cd95.5dd5",
+        "type": "comment",
+        "z": "12a7f09c.a9f45f",
+        "name": "Bind Client ID comment",
+        "info": "The bind client ID is used to bind to a client with multiFlex. This is only relevant to radios running version 3.0 or newer.\n\nRight now the flow is designed to get the client ID from a single client connected to the radio. This allows getting more information from the radio such as TX Band Settings. I will be able to parse and show more information to the radio going forward.\n\nDave wo2x",
+        "x": 840,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "2aef1e6a.8e0672",
+        "type": "comment",
+        "z": "12a7f09c.a9f45f",
+        "name": "set Global TXFreq comment",
+        "info": "This node is needed to have the TX Frequency of the radio available in other tabs. \n\nglobal.TXFreq appears in the UDP broadcast flow (HF Auto and Green Heron Everywhere).\n\nDave wo2x",
+        "x": 440,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "6e585dbf.fbfe64",
+        "type": "comment",
+        "z": "12a7f09c.a9f45f",
+        "name": "TCP node comment",
+        "info": "Change the IP address in the TCP node to the radio's actual IP address. You can get this from SmartSDR Settings/Radio Settings/Network tab.\nI highly suggest in your router you make a DHCP reservation for the radio so that it always gets the same IP address assigned. Google router DHCP reservation for more info.\n\nDave wo2x\n",
+        "x": 90,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "953f7c7a.668dd",
+        "type": "ui_group",
+        "z": "",
+        "name": "Flex Radio",
+        "tab": "8f98f4ce.30eb48",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "8f98f4ce.30eb48",
+        "type": "ui_tab",
+        "z": "",
+        "name": "WO2X Shack Control",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]

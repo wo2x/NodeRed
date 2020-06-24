@@ -1,0 +1,733 @@
+[
+    {
+        "id": "c0033fe8.0b9e2",
+        "type": "tab",
+        "label": "PSTRotator AZ",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "8a0c6b9b.08a0f8",
+        "type": "udp out",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "addr": "10.4.0.119",
+        "iface": "",
+        "port": "12000",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 780,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "bbc6a84c.0f6a18",
+        "type": "udp in",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "iface": "",
+        "port": "12001",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "utf8",
+        "x": 80,
+        "y": 560,
+        "wires": [
+            [
+                "dcb759b9.987ed8"
+            ]
+        ]
+    },
+    {
+        "id": "e86c5905.7f0598",
+        "type": "function",
+        "z": "c0033fe8.0b9e2",
+        "name": "Parse AZ",
+        "func": "msg.payload= msg.payload = parseInt(msg.payload.substr(3,3))\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 560,
+        "wires": [
+            [
+                "32a7087.c0a1ef8"
+            ]
+        ]
+    },
+    {
+        "id": "32248866.805e88",
+        "type": "function",
+        "z": "c0033fe8.0b9e2",
+        "name": "50",
+        "func": "msg.payload = \"<PST><AZIMUTH>50</AZIMUTH></PST>\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 20,
+        "wires": [
+            [
+                "8a0c6b9b.08a0f8"
+            ]
+        ]
+    },
+    {
+        "id": "dcb759b9.987ed8",
+        "type": "switch",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "AZ:",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 230,
+        "y": 560,
+        "wires": [
+            [
+                "e86c5905.7f0598"
+            ]
+        ]
+    },
+    {
+        "id": "f61dc828.5e0058",
+        "type": "function",
+        "z": "c0033fe8.0b9e2",
+        "name": "120",
+        "func": "msg.payload = \"<PST><AZIMUTH>120</AZIMUTH></PST>\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 80,
+        "wires": [
+            [
+                "8a0c6b9b.08a0f8"
+            ]
+        ]
+    },
+    {
+        "id": "f9aabb7d.c8da68",
+        "type": "function",
+        "z": "c0033fe8.0b9e2",
+        "name": "165",
+        "func": "msg.payload = \"<PST><AZIMUTH>165</AZIMUTH></PST>\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 140,
+        "wires": [
+            [
+                "8a0c6b9b.08a0f8"
+            ]
+        ]
+    },
+    {
+        "id": "196ef95d.d6ca67",
+        "type": "function",
+        "z": "c0033fe8.0b9e2",
+        "name": "210",
+        "func": "msg.payload = \"<PST><AZIMUTH>210</AZIMUTH></PST>\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 200,
+        "wires": [
+            [
+                "8a0c6b9b.08a0f8"
+            ]
+        ]
+    },
+    {
+        "id": "5ecc0e38.1c1d5",
+        "type": "function",
+        "z": "c0033fe8.0b9e2",
+        "name": "240",
+        "func": "msg.payload = \"<PST><AZIMUTH>240</AZIMUTH></PST>\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 260,
+        "wires": [
+            [
+                "8a0c6b9b.08a0f8"
+            ]
+        ]
+    },
+    {
+        "id": "93802966.ffa988",
+        "type": "function",
+        "z": "c0033fe8.0b9e2",
+        "name": "280",
+        "func": "msg.payload = \"<PST><AZIMUTH>280</AZIMUTH></PST>\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 320,
+        "wires": [
+            [
+                "8a0c6b9b.08a0f8"
+            ]
+        ]
+    },
+    {
+        "id": "5380e41f.27b32c",
+        "type": "function",
+        "z": "c0033fe8.0b9e2",
+        "name": "330",
+        "func": "msg.payload = \"<PST><AZIMUTH>330</AZIMUTH></PST>\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 380,
+        "wires": [
+            [
+                "8a0c6b9b.08a0f8"
+            ]
+        ]
+    },
+    {
+        "id": "f9b3f52b.b3e7b8",
+        "type": "function",
+        "z": "c0033fe8.0b9e2",
+        "name": "0",
+        "func": "msg.payload = \"<PST><AZIMUTH>0</AZIMUTH></PST>\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 440,
+        "wires": [
+            [
+                "8a0c6b9b.08a0f8"
+            ]
+        ]
+    },
+    {
+        "id": "92ca15ca.0f95c8",
+        "type": "ui_button",
+        "z": "c0033fe8.0b9e2",
+        "name": "50",
+        "group": "2d3b2ffa.f778f",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "50",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "blue",
+        "icon": "refresh",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 70,
+        "y": 20,
+        "wires": [
+            [
+                "e6e08e3f.10bd"
+            ]
+        ]
+    },
+    {
+        "id": "e6e08e3f.10bd",
+        "type": "switch",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 20,
+        "wires": [
+            [
+                "32248866.805e88"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "b9a4da0f.5e2038",
+        "type": "switch",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 80,
+        "wires": [
+            [
+                "f61dc828.5e0058"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "afbed114.57b98",
+        "type": "ui_button",
+        "z": "c0033fe8.0b9e2",
+        "name": "120",
+        "group": "2d3b2ffa.f778f",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "120",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "blue",
+        "icon": "refresh",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 70,
+        "y": 80,
+        "wires": [
+            [
+                "b9a4da0f.5e2038"
+            ]
+        ]
+    },
+    {
+        "id": "cb80b220.ba973",
+        "type": "ui_button",
+        "z": "c0033fe8.0b9e2",
+        "name": "165",
+        "group": "2d3b2ffa.f778f",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "165",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "blue",
+        "icon": "refresh",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 70,
+        "y": 140,
+        "wires": [
+            [
+                "b71f7b2f.79f868"
+            ]
+        ]
+    },
+    {
+        "id": "b71f7b2f.79f868",
+        "type": "switch",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 140,
+        "wires": [
+            [
+                "f9aabb7d.c8da68"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "bb58693d.a10068",
+        "type": "switch",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 200,
+        "wires": [
+            [
+                "196ef95d.d6ca67"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "5d69832b.2b448c",
+        "type": "switch",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 260,
+        "wires": [
+            [
+                "5ecc0e38.1c1d5"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "3ffb1749.b40dd8",
+        "type": "switch",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 320,
+        "wires": [
+            [
+                "93802966.ffa988"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4ace7b2e.345fc4",
+        "type": "switch",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 380,
+        "wires": [
+            [
+                "5380e41f.27b32c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "c2adea1d.0a1118",
+        "type": "switch",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 230,
+        "y": 440,
+        "wires": [
+            [
+                "f9b3f52b.b3e7b8"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "4c9b90f6.2ff8f",
+        "type": "ui_button",
+        "z": "c0033fe8.0b9e2",
+        "name": "210",
+        "group": "2d3b2ffa.f778f",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "210",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "blue",
+        "icon": "refresh",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 70,
+        "y": 200,
+        "wires": [
+            [
+                "bb58693d.a10068"
+            ]
+        ]
+    },
+    {
+        "id": "9b43b326.20c2f",
+        "type": "ui_button",
+        "z": "c0033fe8.0b9e2",
+        "name": "240",
+        "group": "2d3b2ffa.f778f",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "240",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "blue",
+        "icon": "refresh",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 70,
+        "y": 260,
+        "wires": [
+            [
+                "5d69832b.2b448c"
+            ]
+        ]
+    },
+    {
+        "id": "ca377f14.ed011",
+        "type": "ui_button",
+        "z": "c0033fe8.0b9e2",
+        "name": "280",
+        "group": "2d3b2ffa.f778f",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "280",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "blue",
+        "icon": "refresh",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 70,
+        "y": 320,
+        "wires": [
+            [
+                "3ffb1749.b40dd8"
+            ]
+        ]
+    },
+    {
+        "id": "93c9606.842b3a",
+        "type": "ui_button",
+        "z": "c0033fe8.0b9e2",
+        "name": "330",
+        "group": "2d3b2ffa.f778f",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "330",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "blue",
+        "icon": "refresh",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 70,
+        "y": 380,
+        "wires": [
+            [
+                "4ace7b2e.345fc4"
+            ]
+        ]
+    },
+    {
+        "id": "d4e831d7.cd863",
+        "type": "ui_button",
+        "z": "c0033fe8.0b9e2",
+        "name": "0",
+        "group": "2d3b2ffa.f778f",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "0",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "blue",
+        "icon": "refresh",
+        "payload": "true",
+        "payloadType": "bool",
+        "topic": "",
+        "x": 70,
+        "y": 440,
+        "wires": [
+            [
+                "c2adea1d.0a1118"
+            ]
+        ]
+    },
+    {
+        "id": "c34af79b.10daa8",
+        "type": "ui_text_input",
+        "z": "c0033fe8.0b9e2",
+        "name": "AZ Input",
+        "label": "AZ Input",
+        "tooltip": "",
+        "group": "2d3b2ffa.f778f",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "number",
+        "delay": "0",
+        "topic": "",
+        "x": 80,
+        "y": 500,
+        "wires": [
+            [
+                "7436cc31.163074"
+            ]
+        ]
+    },
+    {
+        "id": "32a7087.c0a1ef8",
+        "type": "ui_gauge",
+        "z": "c0033fe8.0b9e2",
+        "name": "",
+        "group": "2d3b2ffa.f778f",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "gtype": "compass",
+        "title": "Azimuth",
+        "label": "Degrees",
+        "format": "{{msg.payload}}",
+        "min": 0,
+        "max": "360",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "x": 620,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "7436cc31.163074",
+        "type": "function",
+        "z": "c0033fe8.0b9e2",
+        "name": "AZ Input",
+        "func": "msg.payload = \"<PST><AZIMUTH>\"+msg.payload+\"</AZIMUTH></PST>\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 500,
+        "wires": [
+            [
+                "8a0c6b9b.08a0f8"
+            ]
+        ]
+    },
+    {
+        "id": "68053aca.b30544",
+        "type": "comment",
+        "z": "c0033fe8.0b9e2",
+        "name": "Rotor flow comment",
+        "info": "The rotor flow is designed to send UDP requests to PSTRotator software.\n\nChange the UDP send node IP to the IP of the PC that is running PSTRotator AZ software.\nI highly suggest in your router you make a DHCP reservation for the PC so that it always gets the same IP address assigned. Google router DHCP reservation for more info.\n\nPSTRotator AZ settings - \nGo to Set and check UDP Control\nGo to Comm and click on UDP COntrol setup\nport should be 12000 and IP should be the PC's local IP that is running PSTRotator AZ. Enter the actual IP of the PC (example - 192.168.1.101) and not the loopback IP (127.0.0.1)\n\nDave wo2x",
+        "x": 730,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "2d3b2ffa.f778f",
+        "type": "ui_group",
+        "z": "",
+        "name": "Rotor",
+        "tab": "8f98f4ce.30eb48",
+        "order": 2,
+        "disp": true,
+        "width": "4",
+        "collapse": false
+    },
+    {
+        "id": "8f98f4ce.30eb48",
+        "type": "ui_tab",
+        "z": "",
+        "name": "WO2X Shack Control",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]

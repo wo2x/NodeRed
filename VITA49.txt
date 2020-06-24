@@ -1,0 +1,313 @@
+[
+    {
+        "id": "ccd5369d.3ed7a8",
+        "type": "tab",
+        "label": "VITA 49",
+        "disabled": false,
+        "info": "[\r\n    {\r\n        \"id\": \"d57b9411.1021b8\",\r\n        \"type\": \"tab\",\r\n        \"label\": \"Vita49\",\r\n        \"disabled\": true,\r\n        \"info\": \"\"\r\n    },\r\n    {\r\n        \"id\": \"5a3b2151.55e69\",\r\n        \"type\": \"udp in\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"name\": \"\",\r\n        \"iface\": \"\",\r\n        \"port\": \"4992\",\r\n        \"ipv\": \"udp4\",\r\n        \"multicast\": \"false\",\r\n        \"group\": \"\",\r\n        \"datatype\": \"utf8\",\r\n        \"x\": 229,\r\n        \"y\": 274,\r\n        \"wires\": [\r\n            [\r\n                \"fa1aa25b.c8587\",\r\n                \"970d0b1d.bd16a8\"\r\n            ]\r\n        ]\r\n    },\r\n    {\r\n        \"id\": \"8dc0d160.314d5\",\r\n        \"type\": \"switch\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"name\": \"\",\r\n        \"property\": \"payload\",\r\n        \"propertyType\": \"msg\",\r\n        \"rules\": [\r\n            {\r\n                \"t\": \"regex\",\r\n                \"v\": \"^model=\",\r\n                \"vt\": \"str\",\r\n                \"case\": false\r\n            }\r\n        ],\r\n        \"checkall\": \"true\",\r\n        \"repair\": false,\r\n        \"outputs\": 1,\r\n        \"x\": 543,\r\n        \"y\": 278,\r\n        \"wires\": [\r\n            [\r\n                \"957b81c7.e5a2d\"\r\n            ]\r\n        ]\r\n    },\r\n    {\r\n        \"id\": \"fa1aa25b.c8587\",\r\n        \"type\": \"split\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"name\": \"\",\r\n        \"splt\": \" \",\r\n        \"spltType\": \"str\",\r\n        \"arraySplt\": 1,\r\n        \"arraySpltType\": \"len\",\r\n        \"stream\": false,\r\n        \"addname\": \"\",\r\n        \"x\": 387,\r\n        \"y\": 276,\r\n        \"wires\": [\r\n            [\r\n                \"8dc0d160.314d5\",\r\n                \"bcfe457d.549f28\",\r\n                \"c7172d37.396f7\",\r\n                \"48d66a17.51c914\"\r\n            ]\r\n        ]\r\n    },\r\n    {\r\n        \"id\": \"8cdc97f6.80e1a8\",\r\n        \"type\": \"ui_text\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"group\": \"43b5a859.82e898\",\r\n        \"order\": 6,\r\n        \"width\": 0,\r\n        \"height\": 0,\r\n        \"name\": \"Vita49\",\r\n        \"label\": \"\",\r\n        \"format\": \"{{msg.payload}}\",\r\n        \"layout\": \"col-center\",\r\n        \"x\": 913,\r\n        \"y\": 284,\r\n        \"wires\": []\r\n    },\r\n    {\r\n        \"id\": \"957b81c7.e5a2d\",\r\n        \"type\": \"function\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"name\": \"ParseModel\",\r\n        \"func\": \"\\nmsg.payload= msg.payload.split('-')[1];\\n\\nflow.set(\\\"Model\\\",msg.payload);\\n\\n\\n\\nreturn msg;\",\r\n        \"outputs\": 1,\r\n        \"noerr\": 0,\r\n        \"x\": 714,\r\n        \"y\": 283,\r\n        \"wires\": [\r\n            [\r\n                \"8cdc97f6.80e1a8\"\r\n            ]\r\n        ]\r\n    },\r\n    {\r\n        \"id\": \"970d0b1d.bd16a8\",\r\n        \"type\": \"debug\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"name\": \"\",\r\n        \"active\": false,\r\n        \"tosidebar\": true,\r\n        \"console\": false,\r\n        \"tostatus\": false,\r\n        \"complete\": \"false\",\r\n        \"x\": 616,\r\n        \"y\": 137,\r\n        \"wires\": []\r\n    },\r\n    {\r\n        \"id\": \"bcfe457d.549f28\",\r\n        \"type\": \"switch\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"name\": \"\",\r\n        \"property\": \"payload\",\r\n        \"propertyType\": \"msg\",\r\n        \"rules\": [\r\n            {\r\n                \"t\": \"regex\",\r\n                \"v\": \"^callsign=\",\r\n                \"vt\": \"str\",\r\n                \"case\": false\r\n            }\r\n        ],\r\n        \"checkall\": \"true\",\r\n        \"repair\": false,\r\n        \"outputs\": 1,\r\n        \"x\": 535,\r\n        \"y\": 361,\r\n        \"wires\": [\r\n            [\r\n                \"cc13a1cf.f5e15\"\r\n            ]\r\n        ]\r\n    },\r\n    {\r\n        \"id\": \"cc13a1cf.f5e15\",\r\n        \"type\": \"function\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"name\": \"ParseCallSign\",\r\n        \"func\": \"\\nmsg.payload= msg.payload.split('=')[1];\\n\\nflow.set(\\\"Callsign\\\",msg.payload);\\n\\n\\n\\nreturn msg;\",\r\n        \"outputs\": 1,\r\n        \"noerr\": 0,\r\n        \"x\": 736,\r\n        \"y\": 362,\r\n        \"wires\": [\r\n            [\r\n                \"9084e1c1.41f58\"\r\n            ]\r\n        ]\r\n    },\r\n    {\r\n        \"id\": \"9084e1c1.41f58\",\r\n        \"type\": \"ui_text\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"group\": \"43b5a859.82e898\",\r\n        \"order\": 6,\r\n        \"width\": 0,\r\n        \"height\": 0,\r\n        \"name\": \"Vita49\",\r\n        \"label\": \"\",\r\n        \"format\": \"{{msg.payload}}\",\r\n        \"layout\": \"col-center\",\r\n        \"x\": 917,\r\n        \"y\": 360,\r\n        \"wires\": []\r\n    },\r\n    {\r\n        \"id\": \"c7172d37.396f7\",\r\n        \"type\": \"switch\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"name\": \"\",\r\n        \"property\": \"payload\",\r\n        \"propertyType\": \"msg\",\r\n        \"rules\": [\r\n            {\r\n                \"t\": \"regex\",\r\n                \"v\": \"^inuse_ip=\",\r\n                \"vt\": \"str\",\r\n                \"case\": false\r\n            }\r\n        ],\r\n        \"checkall\": \"true\",\r\n        \"repair\": false,\r\n        \"outputs\": 1,\r\n        \"x\": 527,\r\n        \"y\": 434,\r\n        \"wires\": [\r\n            [\r\n                \"cfb17f30.757ef\"\r\n            ]\r\n        ]\r\n    },\r\n    {\r\n        \"id\": \"cfb17f30.757ef\",\r\n        \"type\": \"function\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"name\": \"ParseIP\",\r\n        \"func\": \"\\nmsg.payload= msg.payload.split(',')[1];\\n\\nflow.set(\\\"IPadd\\\",msg.payload);\\n\\n\\n\\nreturn msg;\",\r\n        \"outputs\": 1,\r\n        \"noerr\": 0,\r\n        \"x\": 708,\r\n        \"y\": 435,\r\n        \"wires\": [\r\n            [\r\n                \"8c2a7b09.8c3058\"\r\n            ]\r\n        ]\r\n    },\r\n    {\r\n        \"id\": \"8c2a7b09.8c3058\",\r\n        \"type\": \"ui_text\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"group\": \"43b5a859.82e898\",\r\n        \"order\": 6,\r\n        \"width\": 0,\r\n        \"height\": 0,\r\n        \"name\": \"Vita49\",\r\n        \"label\": \"\",\r\n        \"format\": \"{{msg.payload}}\",\r\n        \"layout\": \"col-center\",\r\n        \"x\": 909,\r\n        \"y\": 433,\r\n        \"wires\": []\r\n    },\r\n    {\r\n        \"id\": \"48d66a17.51c914\",\r\n        \"type\": \"switch\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"name\": \"\",\r\n        \"property\": \"payload\",\r\n        \"propertyType\": \"msg\",\r\n        \"rules\": [\r\n            {\r\n                \"t\": \"regex\",\r\n                \"v\": \"^gui_client_stations=\",\r\n                \"vt\": \"str\",\r\n                \"case\": false\r\n            }\r\n        ],\r\n        \"checkall\": \"true\",\r\n        \"repair\": false,\r\n        \"outputs\": 1,\r\n        \"x\": 551,\r\n        \"y\": 513,\r\n        \"wires\": [\r\n            [\r\n                \"fa6cc07d.26f95\"\r\n            ]\r\n        ]\r\n    },\r\n    {\r\n        \"id\": \"fa6cc07d.26f95\",\r\n        \"type\": \"function\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"name\": \"ParseClients\",\r\n        \"func\": \"\\nmsg.payload= msg.payload.split('=')[1];\\n\\nflow.set(\\\"Clients\\\",msg.payload);\\n\\n\\n\\nreturn msg;\",\r\n        \"outputs\": 1,\r\n        \"noerr\": 0,\r\n        \"x\": 699,\r\n        \"y\": 511,\r\n        \"wires\": [\r\n            [\r\n                \"674509e2.b62b18\"\r\n            ]\r\n        ]\r\n    },\r\n    {\r\n        \"id\": \"674509e2.b62b18\",\r\n        \"type\": \"ui_text\",\r\n        \"z\": \"d57b9411.1021b8\",\r\n        \"group\": \"43b5a859.82e898\",\r\n        \"order\": 6,\r\n        \"width\": 0,\r\n        \"height\": 0,\r\n        \"name\": \"Vita49\",\r\n        \"label\": \"\",\r\n        \"format\": \"{{msg.payload}}\",\r\n        \"layout\": \"col-center\",\r\n        \"x\": 890,\r\n        \"y\": 509,\r\n        \"wires\": []\r\n    },\r\n    {\r\n        \"id\": \"43b5a859.82e898\",\r\n        \"type\": \"ui_group\",\r\n        \"z\": \"\",\r\n        \"name\": \"6600 Status\",\r\n        \"tab\": \"3459151d.04344a\",\r\n        \"disp\": true,\r\n        \"width\": \"6\",\r\n        \"collapse\": false\r\n    },\r\n    {\r\n        \"id\": \"3459151d.04344a\",\r\n        \"type\": \"ui_tab\",\r\n        \"z\": \"\",\r\n        \"name\": \"WO2X Shack Control\",\r\n        \"icon\": \"dashboard\",\r\n        \"order\": 1,\r\n        \"disabled\": false,\r\n        \"hidden\": false\r\n    }\r\n]"
+    },
+    {
+        "id": "c1584990.d7e3b8",
+        "type": "ui_text",
+        "z": "ccd5369d.3ed7a8",
+        "group": "953f7c7a.668dd",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "Client Name",
+        "label": "Client Names",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 750,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "3165832a.26363c",
+        "type": "function",
+        "z": "ccd5369d.3ed7a8",
+        "name": "ParseClients",
+        "func": "\nmsg.payload= msg.payload.split('=')[1];\n\nflow.set(\"Clients\",msg.payload);\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 280,
+        "wires": [
+            [
+                "c1584990.d7e3b8"
+            ]
+        ]
+    },
+    {
+        "id": "4e014958.f43aa8",
+        "type": "switch",
+        "z": "ccd5369d.3ed7a8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "^gui_client_stations=",
+                "vt": "str",
+                "case": false
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 280,
+        "wires": [
+            [
+                "3165832a.26363c"
+            ]
+        ]
+    },
+    {
+        "id": "8ae292fa.2a05a",
+        "type": "split",
+        "z": "ccd5369d.3ed7a8",
+        "name": "Radio Data",
+        "splt": " ",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 250,
+        "y": 100,
+        "wires": [
+            [
+                "b6a614d6.872238",
+                "7519e8b4.8c67c8",
+                "4e014958.f43aa8",
+                "2f071385.87b2bc"
+            ]
+        ]
+    },
+    {
+        "id": "a92a02ce.1f80d",
+        "type": "udp in",
+        "z": "ccd5369d.3ed7a8",
+        "name": "Flex VITA 49",
+        "iface": "",
+        "port": "4992",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "utf8",
+        "x": 70,
+        "y": 100,
+        "wires": [
+            [
+                "8ae292fa.2a05a"
+            ]
+        ]
+    },
+    {
+        "id": "b6a614d6.872238",
+        "type": "switch",
+        "z": "ccd5369d.3ed7a8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "^model=",
+                "vt": "str",
+                "case": false
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 100,
+        "wires": [
+            [
+                "22557bbf.097584"
+            ]
+        ]
+    },
+    {
+        "id": "7519e8b4.8c67c8",
+        "type": "switch",
+        "z": "ccd5369d.3ed7a8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "^callsign=",
+                "vt": "str",
+                "case": false
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 160,
+        "wires": [
+            [
+                "b30000b9.f1c6d"
+            ]
+        ]
+    },
+    {
+        "id": "2f071385.87b2bc",
+        "type": "switch",
+        "z": "ccd5369d.3ed7a8",
+        "name": "inuse_ip=",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "^inuse_ip=",
+                "vt": "str",
+                "case": false
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 420,
+        "y": 220,
+        "wires": [
+            [
+                "2d63ff63.d2edd"
+            ]
+        ]
+    },
+    {
+        "id": "22557bbf.097584",
+        "type": "function",
+        "z": "ccd5369d.3ed7a8",
+        "name": "ParseModel",
+        "func": "\nmsg.payload= msg.payload.split('-')[1];\n\nflow.set(\"Model\",msg.payload);\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 100,
+        "wires": [
+            [
+                "9eff7063.c1c2f"
+            ]
+        ]
+    },
+    {
+        "id": "b30000b9.f1c6d",
+        "type": "function",
+        "z": "ccd5369d.3ed7a8",
+        "name": "ParseCallSign",
+        "func": "\nmsg.payload= msg.payload.split('=')[1];\n\nflow.set(\"Callsign\",msg.payload);\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 580,
+        "y": 160,
+        "wires": [
+            [
+                "fb7e29ff.c53938"
+            ]
+        ]
+    },
+    {
+        "id": "2d63ff63.d2edd",
+        "type": "function",
+        "z": "ccd5369d.3ed7a8",
+        "name": "ParseIP",
+        "func": "\nmsg.payload= msg.payload.split('=')[1];\n\nflow.set(\"InUseIp\",msg.payload);\n\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 220,
+        "wires": [
+            [
+                "34e30ef2.304f22"
+            ]
+        ]
+    },
+    {
+        "id": "9eff7063.c1c2f",
+        "type": "ui_text",
+        "z": "ccd5369d.3ed7a8",
+        "group": "953f7c7a.668dd",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Model",
+        "label": "Radio Model",
+        "format": "Flex Radio  {{msg.payload}}",
+        "layout": "row-spread",
+        "x": 730,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "fb7e29ff.c53938",
+        "type": "ui_text",
+        "z": "ccd5369d.3ed7a8",
+        "group": "953f7c7a.668dd",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Radio Name",
+        "label": "Radio Name",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 750,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "34e30ef2.304f22",
+        "type": "ui_text",
+        "z": "ccd5369d.3ed7a8",
+        "group": "953f7c7a.668dd",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "Client IP",
+        "label": "Client IP's",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 740,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "2eaf7532.e9bf4a",
+        "type": "comment",
+        "z": "ccd5369d.3ed7a8",
+        "name": "VITA49 Comment",
+        "info": "This flow interrogates the broadcasts from the radio and parses info such as model, radio name, client IP, and client name  (it will show multiple clients if multiple clients are connected)\n\nDave wo2x",
+        "x": 160,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "953f7c7a.668dd",
+        "type": "ui_group",
+        "z": "",
+        "name": "Flex Radio",
+        "tab": "8f98f4ce.30eb48",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "8f98f4ce.30eb48",
+        "type": "ui_tab",
+        "z": "",
+        "name": "WO2X Shack Control",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
