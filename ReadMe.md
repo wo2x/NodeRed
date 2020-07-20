@@ -8,10 +8,10 @@ Click on the three horizontal lines in the upper right corner and choose Manage 
 
 In the search modules window search and install the following
 
-node-red-contrib-msg-resend 
-node-red-contrib-ui-led 
-node-red-contrib-ui-level 
-node-red-dashboard 
+node-red-contrib-msg-resend
+node-red-contrib-ui-led
+node-red-contrib-ui-level
+node-red-dashboard
 node-red-node-wol
 node-red-contrib-string
 
