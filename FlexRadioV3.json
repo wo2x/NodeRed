@@ -1,0 +1,1402 @@
+[
+    {
+        "id": "a175cd69.c191c",
+        "type": "tab",
+        "label": "FlexRadio",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "56ce85a3.a485fc",
+        "type": "ui_text",
+        "z": "a175cd69.c191c",
+        "group": "ed6646f0.bb37d8",
+        "order": 5,
+        "width": "6",
+        "height": "1",
+        "name": "TX VFO",
+        "label": "TX VFO",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 600,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "ae053d8f.d283b",
+        "type": "tcp request",
+        "z": "a175cd69.c191c",
+        "server": "10.4.0.245",
+        "port": "4992",
+        "out": "sit",
+        "splitc": " ",
+        "name": "",
+        "x": 180,
+        "y": 460,
+        "wires": [
+            [
+                "1afdaa75.d274b6",
+                "3fc4b015.499ed"
+            ]
+        ]
+    },
+    {
+        "id": "2c5c34f7.517dbc",
+        "type": "inject",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "2",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 90,
+        "y": 40,
+        "wires": [
+            [
+                "b2c2c5be.2f5398",
+                "a5a9eeb8.2932d",
+                "764da150.a252",
+                "5af44612.5b6518",
+                "69634fb2.eea81"
+            ]
+        ]
+    },
+    {
+        "id": "b2c2c5be.2f5398",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "C173|sub tx all",
+        "func": "msg.payload = \"C173|sub tx power\\r\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 260,
+        "y": 360,
+        "wires": [
+            [
+                "ae053d8f.d283b"
+            ]
+        ]
+    },
+    {
+        "id": "1afdaa75.d274b6",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "Hex to String",
+        "func": "msg.payload = msg.payload.toString('utf8');\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 460,
+        "wires": [
+            [
+                "5c770b85.b15c24",
+                "77f2a4c7.8cc77c",
+                "ff8d3346.2866b"
+            ]
+        ]
+    },
+    {
+        "id": "5c770b85.b15c24",
+        "type": "change",
+        "z": "a175cd69.c191c",
+        "name": "Change cal_freq to cal_f",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "cal_freq",
+                "fromt": "str",
+                "to": "cal_f",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 170,
+        "y": 560,
+        "wires": [
+            [
+                "d6ef8bba.f44288"
+            ]
+        ]
+    },
+    {
+        "id": "8edfdb8c.36fdd8",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "Parse TX VFO",
+        "func": "msg.payload = parseFloat(msg.payload.substr(5,7));\nmsg.payload = msg.payload.toFixed(6);\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 420,
+        "y": 720,
+        "wires": [
+            [
+                "56ce85a3.a485fc",
+                "1a7045dc.2d43ea"
+            ]
+        ]
+    },
+    {
+        "id": "1a7045dc.2d43ea",
+        "type": "change",
+        "z": "a175cd69.c191c",
+        "name": "Set TXFrequency",
+        "rules": [
+            {
+                "t": "set",
+                "p": "TXFreq",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 430,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a5a9eeb8.2932d",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "C1|sub client all",
+        "func": "msg.payload = \"C1|sub client all\\r\\n\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 260,
+        "y": 20,
+        "wires": [
+            [
+                "ae053d8f.d283b"
+            ]
+        ]
+    },
+    {
+        "id": "78d7d1f9.c2a41",
+        "type": "switch",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "client_id=",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 730,
+        "y": 460,
+        "wires": [
+            [
+                "1151f0ad.5378af"
+            ]
+        ]
+    },
+    {
+        "id": "77f2a4c7.8cc77c",
+        "type": "split",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "splt": " ",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 590,
+        "y": 460,
+        "wires": [
+            [
+                "78d7d1f9.c2a41"
+            ]
+        ]
+    },
+    {
+        "id": "fcc8b672.c80478",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "C44|client bind Client_id",
+        "func": "msg.payload = msg.payload.substr(10,36);\nmsg.payload = \"C44|client bind client_id=\" + msg.payload + \"\\n\\r\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1030,
+        "y": 540,
+        "wires": [
+            [
+                "ae053d8f.d283b"
+            ]
+        ]
+    },
+    {
+        "id": "2a6d6017.8eb4f",
+        "type": "comment",
+        "z": "a175cd69.c191c",
+        "name": "Change cal_freq comments",
+        "info": "Changing cal_Freq to Cal_f necessary for correctly parsing the TX Frequency from the radio.\n\nDave wo2x",
+        "x": 120,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "f3929437.7c97b8",
+        "type": "comment",
+        "z": "a175cd69.c191c",
+        "name": "TX Power display comment",
+        "info": "TX Power will not refresh until the radio transmits. It will show the value of the transmit slider. \n\nFuture code may be able to refresh the value of TX Power in Node Red without transmitting.\n\nDave wo2x",
+        "x": 1360,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "da0bc747.340468",
+        "type": "comment",
+        "z": "a175cd69.c191c",
+        "name": "Bind Client ID comment",
+        "info": "The bind client ID is used to bind to a client with multiFlex. This is only relevant to radios running version 2.6 or 3.0 or newer.\n\nRight now the flow is designed to get the client ID from a single client connected to the radio. This allows getting more information from the radio such as TX Band Settings. I will be able to parse and show more information to the radio going forward.\n\nI used a change node to set global.ClientID in case you need to use the ClientID elsewhere\n\nDave wo2x",
+        "x": 1080,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "5366896.d9aa878",
+        "type": "comment",
+        "z": "a175cd69.c191c",
+        "name": "set Global TXFreq comment",
+        "info": "This node is needed to have the TX Frequency of the radio available in other tabs. \n\nglobal.TXFreq appears in the UDP broadcast flow (HF Auto and Green Heron Everywhere).\n\nDave wo2x",
+        "x": 440,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "d71a8c8f.c3b28",
+        "type": "comment",
+        "z": "a175cd69.c191c",
+        "name": "TCP node comment",
+        "info": "Change the IP address in the TCP node to the radio's actual IP address. You can get this from SmartSDR Settings/Radio Settings/Network tab.\nI highly suggest in your router you make a DHCP reservation for the radio so that it always gets the same IP address assigned. Google router DHCP reservation for more info.\n\nDave wo2x\n",
+        "x": 290,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "fe1d2853.ed5be8",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "Tune On",
+        "func": "msg.payload = \"C144|transmit tune on\\r\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 220,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "df98685f.6d0eb8",
+        "type": "inject",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 80,
+        "y": 860,
+        "wires": [
+            [
+                "fe1d2853.ed5be8"
+            ]
+        ]
+    },
+    {
+        "id": "f79c8dbb.30e29",
+        "type": "inject",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 80,
+        "y": 960,
+        "wires": [
+            [
+                "e7cefc40.cb27"
+            ]
+        ]
+    },
+    {
+        "id": "e7cefc40.cb27",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "Tune Off",
+        "func": "msg.payload = \"C145|transmit tune off\\r\\n\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 220,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1151f0ad.5378af",
+        "type": "change",
+        "z": "a175cd69.c191c",
+        "name": "Set ClientID",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ClientID",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 890,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "418d8681.9c3308",
+        "type": "change",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "ClientID",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 540,
+        "wires": [
+            [
+                "fcc8b672.c80478"
+            ]
+        ]
+    },
+    {
+        "id": "5edf37cf.3e3248",
+        "type": "inject",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 630,
+        "y": 540,
+        "wires": [
+            [
+                "418d8681.9c3308"
+            ]
+        ]
+    },
+    {
+        "id": "5af44612.5b6518",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "C3|sub meter 16 Volts",
+        "func": "msg.payload = \"C3|sub meter 16\\r\\n\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 280,
+        "y": 120,
+        "wires": [
+            [
+                "ae053d8f.d283b"
+            ]
+        ]
+    },
+    {
+        "id": "64b3a52.78ace5c",
+        "type": "udp in",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "iface": "",
+        "port": "4991",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "utf8",
+        "x": 400,
+        "y": 900,
+        "wires": [
+            [
+                "35751161.724b6e"
+            ]
+        ]
+    },
+    {
+        "id": "764da150.a252",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "C2|client udpport 4991",
+        "func": "msg.payload = \"C2|client udpport 4991\\r\\n\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 280,
+        "y": 80,
+        "wires": [
+            [
+                "ae053d8f.d283b"
+            ]
+        ]
+    },
+    {
+        "id": "35751161.724b6e",
+        "type": "change",
+        "z": "a175cd69.c191c",
+        "name": "Parse Volt after fuse",
+        "rules": [
+            {
+                "t": "set",
+                "p": "DCAfterFuse",
+                "pt": "msg",
+                "to": "$substring(msg.payload,28,4)",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "PATemp",
+                "pt": "msg",
+                "to": "$substring(msg.payload,32,4)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 900,
+        "wires": [
+            [
+                "7f169efc.6b8c8",
+                "629bf4ab.33611c"
+            ]
+        ]
+    },
+    {
+        "id": "8585f726.e3b128",
+        "type": "ui_gauge",
+        "z": "a175cd69.c191c",
+        "name": "Volts After internal fuse",
+        "group": "ed6646f0.bb37d8",
+        "order": 11,
+        "width": "3",
+        "height": "2",
+        "gtype": "gage",
+        "title": "Internal voltage",
+        "label": "Volts",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "17",
+        "colors": [
+            "#dde000",
+            "#00bd1f",
+            "#ca3838"
+        ],
+        "seg1": "12.5",
+        "seg2": "16",
+        "x": 1080,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "7f169efc.6b8c8",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "func": "msg.DCAfterFuse = Buffer.from(msg.DCAfterFuse);\nvar x1 = msg.DCAfterFuse[0];\nvar x2 = msg.DCAfterFuse[1];\nvar y1 = msg.DCAfterFuse[2];\nvar y2 = msg.DCAfterFuse[3];\nmsg.MeterNumber = (x1*256) + x2;\n\nmsg.payload = ((y1*256) + y2)/260;\nmsg.payload = parseFloat(msg.payload.toFixed(1))\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 880,
+        "y": 860,
+        "wires": [
+            [
+                "8585f726.e3b128"
+            ]
+        ]
+    },
+    {
+        "id": "69634fb2.eea81",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "C4|sub meter 20 PA Temp",
+        "func": "msg.payload = \"C4|sub meter 20\\r\\n\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 290,
+        "y": 160,
+        "wires": [
+            [
+                "ae053d8f.d283b"
+            ]
+        ]
+    },
+    {
+        "id": "629bf4ab.33611c",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "func": "msg.PATemp = Buffer.from(msg.PATemp);\nvar x1 = msg.PATemp[0];\nvar x2 = msg.PATemp[1];\nvar y1 = msg.PATemp[2];\nvar y2 = msg.PATemp[3];\nmsg.MeterNumber = (x1*256) + x2;\n\nmsg.payload = ((y1*256) + y2)/64;\nmsg.payload = parseFloat(msg.payload.toFixed(1))\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 880,
+        "y": 900,
+        "wires": [
+            [
+                "dffa178d.2b4478"
+            ]
+        ]
+    },
+    {
+        "id": "dffa178d.2b4478",
+        "type": "ui_gauge",
+        "z": "a175cd69.c191c",
+        "name": "PA Temp",
+        "group": "ed6646f0.bb37d8",
+        "order": 12,
+        "width": "3",
+        "height": "2",
+        "gtype": "gage",
+        "title": "PA Temp",
+        "label": "Celsius",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "100",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "60",
+        "seg2": "80",
+        "x": 1040,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "50d606fb.ead0a8",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "C5|sub meter 18",
+        "func": "msg.payload = \"C5|sub meter 18\\r\\n\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 540,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d5591fae.f62ae",
+        "type": "switch",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "band_name=160 r",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "band_name=80",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "band_name=60 r",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "band_name=40 r",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "band_name=30 r",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "band_name=20 r",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "band_name=17 r",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "band_name=15 r",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "band_name=12 r",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "band_name=10 r",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "band_name=6 r",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "band_name=2 r",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "freq=",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 13,
+        "x": 170,
+        "y": 720,
+        "wires": [
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [],
+            [
+                "8edfdb8c.36fdd8"
+            ]
+        ]
+    },
+    {
+        "id": "d6ef8bba.f44288",
+        "type": "split",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "splt": " ",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 390,
+        "y": 560,
+        "wires": [
+            [
+                "d5591fae.f62ae"
+            ]
+        ]
+    },
+    {
+        "id": "ee0db0b8.547fb",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "func": "var string = msg.payload[100].split(\"transmit_band=80\")\n\nmsg.payload = string\nreturn msg",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1010,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ad3a8bb2.2331b8",
+        "type": "debug",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1540,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "97f3cc1b.edf32",
+        "type": "switch",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "transmitbbanda80",
+                "vt": "str",
+                "case": false
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1030,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7e8cb5b6.8018cc",
+        "type": "change",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "rules": [
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "=",
+                "fromt": "str",
+                "to": "a",
+                "tot": "str"
+            },
+            {
+                "t": "change",
+                "p": "payload",
+                "pt": "msg",
+                "from": "_",
+                "fromt": "str",
+                "to": "b",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 850,
+        "y": 620,
+        "wires": [
+            [
+                "97f3cc1b.edf32"
+            ]
+        ]
+    },
+    {
+        "id": "cd883e4f.5ea92",
+        "type": "switch",
+        "z": "a175cd69.c191c",
+        "name": "TX/RX State",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "TRANSMITTING",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "READY",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 350,
+        "y": 1220,
+        "wires": [
+            [
+                "40398b7d.8d76b4"
+            ],
+            [
+                "95ba913a.d796f"
+            ]
+        ]
+    },
+    {
+        "id": "92823d6f.94fe5",
+        "type": "change",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "GREEN",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 1240,
+        "wires": [
+            [
+                "252d710e.f119ee",
+                "d20860b3.cf01",
+                "6b45100d.74c2c",
+                "28babb7f.516164"
+            ]
+        ],
+        "info": "The msg.payload is set to open or closed and\nsent to MQTT so that the Steppir controller\nwill know to open or close the gate.\n\nWhen Closed, the Steppir code will not send commands\nto the controller and hopefully not cause the \nSteppir to actually move while in TX"
+    },
+    {
+        "id": "d20860b3.cf01",
+        "type": "link out",
+        "z": "a175cd69.c191c",
+        "name": "Flex PTT",
+        "links": [
+            "de36f9e6.0dcd38"
+        ],
+        "x": 895,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "28babb7f.516164",
+        "type": "mqtt out",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "topic": "Flex Transmitting",
+        "qos": "",
+        "retain": "",
+        "broker": "adde808f.6e012",
+        "x": 970,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "6b45100d.74c2c",
+        "type": "change",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "txstatus",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 930,
+        "y": 1240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f6c35444.609558",
+        "type": "comment",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "info": " state=TRANSMITTING\n  state=READY",
+        "x": 340,
+        "y": 1120,
+        "wires": []
+    },
+    {
+        "id": "252d710e.f119ee",
+        "type": "ui_text",
+        "z": "a175cd69.c191c",
+        "group": "ed6646f0.bb37d8",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "name": "TX Status",
+        "label": "Flex TX",
+        "format": "<font color= {{msg.color}} > {{msg.payload}} </font>",
+        "layout": "row-spread",
+        "x": 900,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "d23234ea.5715e8",
+        "type": "change",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "color",
+                "pt": "msg",
+                "to": "RED",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 670,
+        "y": 1160,
+        "wires": [
+            [
+                "252d710e.f119ee",
+                "d20860b3.cf01",
+                "6b45100d.74c2c",
+                "28babb7f.516164"
+            ]
+        ],
+        "info": "The msg.payload is set to open or closed and\nsent to MQTT so that the Steppir controller\nwill know to open or close the gate.\n\nWhen Closed, the Steppir code will not send commands\nto the controller and hopefully not cause the \nSteppir to actually move while in TX"
+    },
+    {
+        "id": "3fc4b015.499ed",
+        "type": "split",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "splt": " ",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 210,
+        "y": 1220,
+        "wires": [
+            [
+                "cd883e4f.5ea92"
+            ]
+        ]
+    },
+    {
+        "id": "40398b7d.8d76b4",
+        "type": "split",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "splt": "=",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 510,
+        "y": 1180,
+        "wires": [
+            [
+                "d23234ea.5715e8"
+            ]
+        ]
+    },
+    {
+        "id": "95ba913a.d796f",
+        "type": "split",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "splt": "=",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 510,
+        "y": 1240,
+        "wires": [
+            [
+                "92823d6f.94fe5"
+            ]
+        ]
+    },
+    {
+        "id": "8408254f.d8e048",
+        "type": "string",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "methods": [
+            {
+                "name": "between",
+                "params": [
+                    {
+                        "type": "str",
+                        "value": "transmit freq="
+                    },
+                    {
+                        "type": "str",
+                        "value": "hwalc"
+                    }
+                ]
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 570,
+        "y": 1000,
+        "wires": [
+            [
+                "79493c65.205a34"
+            ]
+        ]
+    },
+    {
+        "id": "ff8d3346.2866b",
+        "type": "switch",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "transmit freq",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 1000,
+        "wires": [
+            [
+                "8408254f.d8e048"
+            ]
+        ]
+    },
+    {
+        "id": "79493c65.205a34",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "func": "msg.payload = msg.payload.split('=');\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 720,
+        "y": 1000,
+        "wires": [
+            [
+                "8cb02302.ed77f"
+            ]
+        ]
+    },
+    {
+        "id": "bada42fe.f94d5",
+        "type": "switch",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "index",
+                "v": "0",
+                "vt": "num",
+                "v2": "0",
+                "v2t": "num"
+            },
+            {
+                "t": "index",
+                "v": "1",
+                "vt": "num",
+                "v2": "1",
+                "v2t": "num"
+            },
+            {
+                "t": "index",
+                "v": "2",
+                "vt": "num",
+                "v2": "2",
+                "v2t": "num"
+            },
+            {
+                "t": "index",
+                "v": "3",
+                "vt": "num",
+                "v2": "3",
+                "v2t": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 1010,
+        "y": 1000,
+        "wires": [
+            [],
+            [
+                "f82d1863.dd2438"
+            ],
+            [
+                "ad3a8bb2.2331b8",
+                "e4c45f36.d608d"
+            ],
+            [
+                "20cbf6ec.9bc36a"
+            ]
+        ]
+    },
+    {
+        "id": "f82d1863.dd2438",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "func": "msg.payload = msg.payload.substr(0,3);\nmsg.payload = parseInt(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1300,
+        "y": 960,
+        "wires": [
+            [
+                "e5ee8449.c61fc8"
+            ]
+        ]
+    },
+    {
+        "id": "e4c45f36.d608d",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "func": "msg.payload = msg.payload.substr(0,3);\nmsg.payload = parseInt(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1300,
+        "y": 1000,
+        "wires": [
+            [
+                "79426fe6.f88ac"
+            ]
+        ]
+    },
+    {
+        "id": "20cbf6ec.9bc36a",
+        "type": "function",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "func": "msg.payload = msg.payload.substr(0,4);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1300,
+        "y": 1040,
+        "wires": [
+            [
+                "b27a705d.fb31"
+            ]
+        ]
+    },
+    {
+        "id": "8cb02302.ed77f",
+        "type": "split",
+        "z": "a175cd69.c191c",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 870,
+        "y": 1000,
+        "wires": [
+            [
+                "bada42fe.f94d5"
+            ]
+        ]
+    },
+    {
+        "id": "e5ee8449.c61fc8",
+        "type": "ui_text",
+        "z": "a175cd69.c191c",
+        "group": "ed6646f0.bb37d8",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "RF Power",
+        "label": "RF Power",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1500,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "79426fe6.f88ac",
+        "type": "ui_text",
+        "z": "a175cd69.c191c",
+        "group": "ed6646f0.bb37d8",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "Tune Power",
+        "label": "Tune Power",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1510,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "b27a705d.fb31",
+        "type": "ui_text",
+        "z": "a175cd69.c191c",
+        "group": "ed6646f0.bb37d8",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "Mode",
+        "label": "Mode",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1490,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "ed6646f0.bb37d8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Flex Radio",
+        "tab": "f104a7ad.de5068",
+        "order": 3,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
+        "id": "adde808f.6e012",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "192.168.50.134",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "Server RPI",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "Server MQTT Alive",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "willTopic": "Server RPI",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "Server MQTT Failure"
+    },
+    {
+        "id": "f104a7ad.de5068",
+        "type": "ui_tab",
+        "z": "",
+        "name": "WO2X Shack Control",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
